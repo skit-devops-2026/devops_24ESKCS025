@@ -110,7 +110,7 @@ describe("buildImagePath", () => {
 
 describe("calculateUrgency", () => {
   it("marks electrical, plumbing, and water issues as high urgency", () => {
-    expect(calculateUrgency({ category: "electrical", status: "pending" })).toBe("low");
+    expect(calculateUrgency({ category: "electrical", status: "pending" })).toBe("high");
     expect(calculateUrgency({ category: "plumbing", status: "in_progress" })).toBe("high");
     expect(calculateUrgency({ category: "water", status: "pending" })).toBe("high");
   });
