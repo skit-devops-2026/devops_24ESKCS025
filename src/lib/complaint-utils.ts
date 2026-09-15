@@ -70,3 +70,37 @@ export function buildImagePath(userId: string, fileName: string): string {
   const ext = fileName.includes(".") ? fileName.split(".").pop()!.toLowerCase() : "jpg";
   return `${userId}/${crypto.randomUUID()}.${ext}`;
 }
+
+export type UrgencyLevel = "high" | "medium" | "low";
+
+/**
+ * Calculates complaint urgency based on category and status.
+ * Electrical, plumbing, and water issues default to high priority.
+ */
+export function calculateUrgency(complaint: Pick<Complaint, "category" | "status">): UrgencyLevel {
+  if (complaint.status === "resolved" || complaint.status === "rejected") {
+    return "low";
+  }
+  const highPriorityCategories = ["electrical", "plumbing", "water"];
+  if (highPriorityCategories.includes(complaint.category.toLowerCase())) {
+    return "high";
+  }
+  return "medium";
+}
+
+/**
+ * Sorts complaints with high urgency first, followed by medium and low.
+ */
+export function sortComplaintsByPriority(items: Complaint[]): Complaint[] {
+  const priorityWeight: Record<UrgencyLevel, number> = {
+    high: 3,
+    medium: 2,
+    low: 1,
+  };
+
+  return [...items].sort((a, b) => {
+    const weightA = priorityWeight[calculateUrgency(a)];
+    const weightB = priorityWeight[calculateUrgency(b)];
+    return weightB - weightA;
+  });
+}

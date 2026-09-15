@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
   buildImagePath,
+  calculateUrgency,
   computeStats,
   countByCategory,
   filterComplaints,
   paginate,
+  sortComplaintsByPriority,
 } from "../complaint-utils";
 import type { Complaint } from "../complaints";
 
@@ -105,3 +107,29 @@ describe("buildImagePath", () => {
     expect(buildImagePath("user-1", "photo").endsWith(".jpg")).toBe(true);
   });
 });
+
+describe("calculateUrgency", () => {
+  it("marks electrical, plumbing, and water issues as high urgency", () => {
+    expect(calculateUrgency({ category: "electrical", status: "pending" })).toBe("high");
+    expect(calculateUrgency({ category: "plumbing", status: "in_progress" })).toBe("high");
+    expect(calculateUrgency({ category: "water", status: "pending" })).toBe("high");
+  });
+
+  it("marks other pending categories as medium urgency", () => {
+    expect(calculateUrgency({ category: "internet", status: "pending" })).toBe("medium");
+    expect(calculateUrgency({ category: "furniture", status: "pending" })).toBe("medium");
+  });
+
+  it("marks resolved or rejected complaints as low urgency", () => {
+    expect(calculateUrgency({ category: "electrical", status: "resolved" })).toBe("low");
+    expect(calculateUrgency({ category: "plumbing", status: "rejected" })).toBe("low");
+  });
+});
+
+describe("sortComplaintsByPriority", () => {
+  it("sorts high priority items ahead of medium and low", () => {
+    const sorted = sortComplaintsByPriority(items);
+    expect(sorted.map((c) => c.id)).toEqual(["1", "3", "2", "4"]);
+  });
+});
+
