@@ -1,5 +1,10 @@
 # HostelFix — Hostel Complaint Management System
 
+**Student Name:** Ainesh  
+**Enrollment ID:** 24ESKCS025  
+**Course:** DevOps Engineering (MT1 — Modules 1–4)  
+**Repository:** https://github.com/Ainesh014/devops-24ESKCS025  
+
 HostelFix is a full-stack web application that lets hostel students raise maintenance
 complaints (electrical, plumbing, internet, furniture, cleanliness, water and other issues),
 attach a photo of the problem, and follow the complaint until it is resolved. Wardens and
@@ -39,13 +44,12 @@ Live preview: https://id-preview--977442ce-b91b-4acc-a56b-dae39855ff7f.lovable.a
 Requirements: Node.js 20 or newer and npm.
 
 ```sh
-# After cloning this repository from its GitHub page, enter the cloned folder.
-cd project
-npm install
+# Clone this repository and enter the project folder
+git clone https://github.com/Ainesh014/devops-24ESKCS025.git
+cd devops-24ESKCS025
+npm install --legacy-peer-deps
 npm run dev
 ```
-
-Use the **Code** button on the GitHub repository page to copy its exact clone command.
 
 The app starts on http://localhost:8080.
 
@@ -135,14 +139,24 @@ To run it locally:
 
 - `main` — always deployable; changes only arrive through merged pull requests
 - `develop` — integration branch for the current milestone
-- `feature/<short-name>` — one branch per feature, e.g. `feature/complaint-filters`
-- `fix/<short-name>` — bug fixes
+- `feature/feature-name` — one branch per feature (e.g. `feature/complaint-priority-helpers`, `feature/readme-and-setup`)
+- `fix/bug-fix-name` — bug fixes (e.g. `fix/ci-failure-demo`)
 
 Every pull request describes what changed, why, and how it was tested. CI must be green
 before merging. See `CONTRIBUTING.md` for the full workflow and commit message convention.
+
+## MT1 Milestone Summary (Modules 1–4)
+
+| Module | Topic | Evidence & Implementation | Status |
+| :--- | :--- | :--- | :--- |
+| **M1** | Repository Setup | Fully filled `README.md` without placeholders, comprehensive `.gitignore`, zero build artifacts (`node_modules`, `venv`, `dist`), and commits distributed across multiple days | Completed |
+| **M2** | Branching & Pull Requests | Multi-branch strategy (`main`, `develop`, feature branches), 4 merged pull requests, each with detailed markdown descriptions | Completed |
+| **M3** | CI Pipeline & Automated Tests | `.github/workflows/ci.yml` running lint, Vitest test suite with coverage, and production build; 5+ successful CI runs; red-then-green run pair demonstrating bug detection and resolution | Completed |
+| **M4** | Jenkins Pipeline | Declarative `Jenkinsfile` with cross-platform agent support, linting, Vitest execution, and artifact archiving | Completed |
 
 ## License
 
 Released for academic coursework use.
 DevOps workflow is managed using GitHub Actions and Jenkins.
 The Jenkins pipeline automatically installs dependencies, runs the test suite, builds the application, and archives the generated outputs.
+
